@@ -9,6 +9,9 @@ const Products = () => {
   const allProducts = useSelector((state) => state.products.products)
   // const productCount = useSelector((state) => state.products.visibleProductscount)
   const [selectedCategory, setSelectedCategory] = useState("All");
+  
+  console.log("Products page - allProducts:", allProducts);
+  console.log("Products page - API URL:", process.env.REACT_APP_API_URL);
 
 
 
