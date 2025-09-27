@@ -26,11 +26,11 @@ export const getProduct = () => async(dispatch)=>{
       payload:data,
     })
   }catch(error){
+    console.error("Product fetch error:", error);
     dispatch({
       type:ALL_PRODUCT_FAIL,
-      payload:`${error.response.data.message}`,
+      payload: error.response?.data?.message || error.message || "Failed to fetch products",
     });
-
   }
 }
 
@@ -86,11 +86,11 @@ export const getAllProductsAdmin = () => async(dispatch)=>{
       payload:data,
     })
   }catch(error){
+    console.error("Admin product fetch error:", error);
     dispatch({
       type:ALL_ADMIN_PRODUCT_FAIL,
-      payload:`${error.response.data.message}`,
+      payload: error.response?.data?.message || error.message || "Failed to fetch admin products",
     });
-
   }
 }
 export const clearErrors = () => async (dispatch) => {
