@@ -7,17 +7,17 @@ const MainSection = () => {
   // const isMobile = useMediaQuery("(min-width:768px)");
 
   // const settings = {
-    dots: false,
-    infinite: true,
-    speed: 2000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    pauseOnHover: false,
-    pauseOnFocus: false,
-    adaptiveHeight: false,
-  };
+  //   dots: false,
+  //   infinite: true,
+  //   speed: 2000,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   autoplay: true,
+  //   autoplaySpeed: 3000,
+  //   pauseOnHover: false,
+  //   pauseOnFocus: false,
+  //   adaptiveHeight: false,
+  // };
 
   return (
     // <section id="home" className="w-full overflow-hidden">
