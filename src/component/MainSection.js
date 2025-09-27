@@ -1,7 +1,7 @@
 import React from "react";
 // import { bannerImages } from "../constants";
 // import Slider from "react-slick";
-import { useMediaQuery } from "@mui/material";
+// import { useMediaQuery } from "@mui/material";
 
 const MainSection = () => {
   // const isMobile = useMediaQuery("(min-width:768px)");

@@ -4,7 +4,7 @@ import { Drawer, ThemeProvider, createTheme } from "@mui/material";
 // import { navItems } from "../constants";
 import DrawerList from "./DrawerList";
 import { HiOutlineBars2 } from "react-icons/hi2";
-import useCategory from "../hooks/useCategory";
+// import useCategory from "../hooks/useCategory";
 import { Link } from "react-router-dom";
 
 const theme = createTheme();

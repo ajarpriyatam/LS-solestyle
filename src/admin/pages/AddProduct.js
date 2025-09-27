@@ -31,7 +31,7 @@ const AddProduct = () => {
         productImageGallery: [],
     });
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading] = useState(false);
     const [selectedGalleryImages, setSelectedGalleryImages] = useState([]);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 

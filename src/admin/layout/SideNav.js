@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { IoHome } from "react-icons/io5";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { NavItem } from "./NavItem";
 
 import { FaList } from "react-icons/fa6";
