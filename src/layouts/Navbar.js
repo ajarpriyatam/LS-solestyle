@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../component/common/Logo";
 import { Drawer, ThemeProvider, createTheme } from "@mui/material";
-// import { navItems } from "../constants";
 import DrawerList from "./DrawerList";
 import { HiOutlineBars2 } from "react-icons/hi2";
-// import useCategory from "../hooks/useCategory";
 import { Link } from "react-router-dom";
 
 const theme = createTheme();
@@ -13,7 +11,6 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
-  // const allCategories = useCategory();
 
   useEffect(() => {
     const updateActiveNav = () => {
@@ -60,6 +57,21 @@ const Navbar = () => {
 
         <div className="hidden lg:flex">
           <ul className="flex justify-center space-x-[50px]">
+          <Link
+              className="flex items-center cursor-pointer group"
+              to='/'
+            >
+              <span
+                className={`text-[18px] font-medium leading-[22.5px] transition-colors duration-300 ${activeNavItem === '/all/collection'
+                  ? "text-orange-500"
+                  : isScrolled
+                    ? "text-slate-100 group-hover:text-orange-500"
+                    : "text-slate-300 group-hover:text-orange-500"
+                  }`}
+              >
+                Home
+              </span>
+            </Link>
             <Link
               className="flex items-center cursor-pointer group"
               to='/all/collection'
@@ -75,7 +87,7 @@ const Navbar = () => {
                 Products
               </span>
             </Link>
-            <Link
+            {/* <Link
               className="flex items-center cursor-pointer group"
               to='/cart'
             >
@@ -89,7 +101,7 @@ const Navbar = () => {
               >
                 Cart
               </span>
-            </Link>
+            </Link> */}
           </ul>
         </div>
 

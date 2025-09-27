@@ -1,24 +1,24 @@
 import React from "react";
-import { navItems } from "../constants";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "../component/common/Logo";
-import CButton from "../component/common/CButton";
+// import CButton from "../component/common/CButton";
 
 const DrawerList = ({ activeNavItem, handleScroll }) => {
+  const location = useLocation();
   return (
-    <div className="bg-white w-[18rem]">
+    <div className="bg-black w-[18rem] h-screen">
       <div className="flex justify-center items-center h-[73px] border-b border-gray-300">
         <Logo />
       </div>
 
-      <div className="flex flex-col items-center justify-between h-full py-4">
+      <div className="flex flex-col items-center justify-between h-full py-4 bg-black">
         <ul className="flex flex-col  items-center justify-center space-y-[30px]">
-          {navItems.map((link, index) => (
-            <li
-              key={index}
+          <li>
+            <Link
+              to="/"
               className={`${
-                activeNavItem !== link.path && "hover:underline"
+                location.pathname !== "/" && "hover:underline hover:text-orange-500"
               } flex items-center cursor-pointer`}
-              onClick={() => handleScroll(link.path)}
             >
               <span
                 style={{
@@ -26,18 +26,40 @@ const DrawerList = ({ activeNavItem, handleScroll }) => {
                   fontWeight: "500",
                   fontSize: "18px",
                   color:
-                    activeNavItem === link.path
-                      ? "var(--color-primary)"
-                      : "#2F2F2F",
+                    location.pathname === "/"
+                      ? "#FF6B35"
+                      : "#FFFFFF",
                 }}
               >
-                {link.name}
+                Home
               </span>
-            </li>
-          ))}
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/all/collection"
+              className={`${
+                location.pathname !== "/all/collection" && "hover:underline hover:text-orange-500"
+              } flex items-center cursor-pointer`}
+            >
+              <span
+                style={{
+                  lineHeight: "22.5px",
+                  fontWeight: "500",
+                  fontSize: "18px",
+                  color:
+                    location.pathname === "/all/collection"
+                      ? "#FF6B35"
+                      : "#FFFFFF",
+                }}
+              >
+                Product
+              </span>
+            </Link>
+          </li>
         </ul>
 
-        <div className="flex flex-col gap-5">
+        {/* <div className="flex flex-col gap-5">
           <CButton
             name="Account"
             color="white"
@@ -45,7 +67,7 @@ const DrawerList = ({ activeNavItem, handleScroll }) => {
             textColor="#12141E"
             border="1px solid black"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

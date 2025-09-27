@@ -2,7 +2,6 @@ import React from "react";
 import Logo from "../component/common/Logo";
 import SocialIcons from "../component/common/SocialIcons";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
-import { footerContact } from "../constants";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -52,16 +51,22 @@ const Footer = () => {
             Get In Touch
           </h3>
           <ul className="flex flex-col gap-[20px] text-left">
-            {footerContact.map((item, index) => (
-              <li key={index}>
-                <Link
-                  to={item.link}
-                  className="text-gray-300 text-[16px] leading-[25.2px] hover:text-[#ff6b00] transition-colors"
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
+            <li>
+              <Link
+                to="tel:+91-1234567890"
+                className="text-gray-300 text-[16px] leading-[25.2px] hover:text-[#ff6b00] transition-colors"
+              >
+                P: +91-1234567890
+              </Link>
+            </li>
+            <li>
+              <Link
+                to='mailto:abc@gmail.com'
+                className="text-gray-300 text-[16px] leading-[25.2px] hover:text-[#ff6b00] transition-colors"
+              >
+                E: abc@gmail.com
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
