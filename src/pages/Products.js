@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../layouts/Layout";
-// import { allProducts } from "../constants";
 import ProductCard from "../component/common/ProductCard";
 import { useSelector, useDispatch } from "react-redux";
 import { getProduct } from "../actions/productAction";
