@@ -1,0 +1,16 @@
+.slick-next::before {
+    color: #333;
+}
+
+.slick-prev::before {
+    color: #333;
+}
+
+.slick-dots li.slick-active button:before {
+    color:orange !important;
+}
+
+/* to give the horizonatl distance of 10px between each slide */
+.collection-slider .slick-slide > div {
+    margin: 0 1px;
+}

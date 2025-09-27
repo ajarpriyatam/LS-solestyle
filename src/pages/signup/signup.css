@@ -1,0 +1,153 @@
+.LoginSignUpContainer {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 95vh;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;  
+}
+
+.LoginSignUpBox {
+  background-color: #1a1a1a; 
+  width: 400px;
+  height: 500px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.login_signUp_toggle {
+  display: flex;
+  height: 50px;
+}
+
+.login_signUp_toggle p {
+  color: rgba(255, 255, 255, 0.8); 
+  font: 300 16px "Roboto";
+  transition: all 0.5s;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+.login_signUp_toggle p:hover {
+   color: #ff6b00;
+}
+
+.LoginSignUpBox div button {
+  background-color: #ff6b00; 
+  height: 3px;
+  width: 50%;
+  border: none;
+  transition: all 0.5s;
+}
+
+.loginForm,
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 32px;
+  justify-content: space-between;
+  height: 85%;
+  transition: all 0.5s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.loginForm>div,
+.signUpForm>div {
+  width: 100%;
+}
+
+.loginForm input,
+.signUpForm input {
+  width: 100%;
+}
+
+.signUpForm {
+  transform: translateY(-100%) translateX(-100vmax);
+}
+
+.loginForm a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  align-self: flex-end;
+  transition: all 0.5s;
+  font: 500 16px "Gill Sans";
+  width: 100%;
+  text-align: right;
+  margin: 10px 0;
+}
+
+.loginForm a:hover {
+  color: #ffffff;
+}
+
+#registerImage img {
+  width: 3vmax;
+  border-radius: 100%;
+}
+
+#registerImage input {
+  display: flex;
+  padding: 0%;
+}
+
+#registerImage input::file-selector-button {
+  cursor: pointer;
+  width: 100%;
+  z-index: 2;
+  height: 5vh;
+  border: none;
+  margin: 0%;
+  font: 400 0.8vmax cursive;
+  transition: all 0.5s;
+  padding: 0 1vmax;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #1a1a1a;
+}
+
+#registerImage input::file-selector-button:hover {
+  background-color: #2a2a2a;
+}
+
+.loginBtn,
+.signUpBtn {
+  border: none;
+  background-color: #ff6b00;
+  color: white;
+  font: 300 14px "Roboto";
+  width: 100%;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.5s;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+}
+
+.loginBtn:hover,
+.signUpBtn:hover {
+  background-color: #ff8533;
+}
+
+.shiftToLeft {
+  transform: translateX(-100%);
+}
+
+.shiftToNeutral {
+  transform: translateX(0%);
+}
+
+.shiftToNeutralForm {
+  transform: translateX(0%) translateY(-100%);
+}
+
+.shiftToRight {
+  transform: translateX(100%);
+}
