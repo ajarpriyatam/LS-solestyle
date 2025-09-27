@@ -6,7 +6,7 @@ import UserMenu from "../../layouts/UserMenu";
 import { useAuth } from "../../context/auth";
 
 const Profile = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

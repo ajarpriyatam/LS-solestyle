@@ -1,7 +1,6 @@
 import React from "react";
 import { navItems } from "../constants";
 import Logo from "../component/common/Logo";
-import { MdOutlineCall } from "react-icons/md";
 import CButton from "../component/common/CButton";
 
 const DrawerList = ({ activeNavItem, handleScroll }) => {

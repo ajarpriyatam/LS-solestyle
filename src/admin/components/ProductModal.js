@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { FiX, FiEdit, FiTrash2, FiSave } from 'react-icons/fi';
+import { FiX, FiEdit, FiTrash2 } from 'react-icons/fi';
 import Modal from './common/Modal';
 import InputField from './common/InputField';
 import SelectField from './common/SelectField';
-import ImageField from './common/ImageField';
 import Button from './common/Button';
 
 const ProductModal = ({ isOpen, onClose, product, mode = 'view' }) => {

@@ -33,7 +33,7 @@ const CartPage = () => {
   );
   const shipping = 12.99;
   const gst = subtotal * 0.08;
-  const discount = 0;
+  // const discount = 0;
   const total = subtotal + shipping + gst;
 
   const updateQuantity = (id, newQuantity) => {

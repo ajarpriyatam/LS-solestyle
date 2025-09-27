@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { IoHome, IoMail, IoGift, IoSettings } from "react-icons/io5";
-import { HiOutlineLogout } from "react-icons/hi";
+import React, { useEffect, useState, useMemo } from "react";
+import { IoHome } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
 import { NavItem } from "./NavItem";
 
 import { FaList } from "react-icons/fa6";
-import { FaTable, FaUsers, FaCar, FaGlobe } from "react-icons/fa";
-import { TbBrandCodesandbox } from "react-icons/tb";
 import { IoCarSportSharp } from "react-icons/io5";
-import { BiSolidOffer } from "react-icons/bi";
-import { MdAdminPanelSettings } from "react-icons/md";
 import Logo from "../../component/common/Logo";
 
 const SideNav = ({ onClose }) => {
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const navigate = useNavigate();
+  // const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  // const navigate = useNavigate();
   const [isSelected, setIsSelected] = useState("Dashboard");
   const location = useLocation();
 
-  const menuItems = [
+  const menuItems = useMemo(() => [
     { name: "Dashboard", path: "/admin/dashboard", icon: IoHome },
     // { type: "text", name: "Manage Booking" },
     { name: "Add Product", path: "/admin/add/product", icon: FaList },
@@ -38,7 +33,7 @@ const SideNav = ({ onClose }) => {
     // { name: "Social Media", path: "/admin/social-media", icon: FaGlobe },
     // { name: "Settings", path: "/admin/settings", icon: IoSettings },
     // { name: "Logout", path: "/logout", icon: HiOutlineLogout },
-  ];
+  ], []);
 
   useEffect(() => {
     const selectedItem = menuItems.find((item) =>

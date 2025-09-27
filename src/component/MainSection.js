@@ -1,12 +1,12 @@
 import React from "react";
-import { bannerImages } from "../constants";
-import Slider from "react-slick";
+// import { bannerImages } from "../constants";
+// import Slider from "react-slick";
 import { useMediaQuery } from "@mui/material";
 
 const MainSection = () => {
-  const isMobile = useMediaQuery("(min-width:768px)");
+  // const isMobile = useMediaQuery("(min-width:768px)");
 
-  const settings = {
+  // const settings = {
     dots: false,
     infinite: true,
     speed: 2000,

@@ -1,9 +1,8 @@
 import React from "react";
 import Logo from "../component/common/Logo";
 import SocialIcons from "../component/common/SocialIcons";
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { footerAbouts, footerContact, popularSearches } from "../constants";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import { footerContact } from "../constants";
 import { Link } from "react-router-dom";
 
 const Footer = () => {

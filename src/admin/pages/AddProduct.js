@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import InputField from "../components/common/InputField";
 import SelectField from "../components/common/SelectField";
 import TextArea from "../components/common/TextArea";
-import Button from "../components/common/Button";
 import { FaPlus, FaTrash, FaImage, FaUpload, FaCheckCircle, FaTimes, FaEdit } from "react-icons/fa";
-import axiosInstance from "../../services/axios";
 import {createProduct, clearErrors} from '../../actions/productAction'
 import { useSelector, useDispatch } from "react-redux";
 import { NEW_PRODUCT_RESET } from "../../constant/productConstant";
@@ -33,7 +31,7 @@ const AddProduct = () => {
         productImageGallery: [],
     });
 
-    const [isLoading, setIsLoading] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
     const [selectedGalleryImages, setSelectedGalleryImages] = useState([]);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 

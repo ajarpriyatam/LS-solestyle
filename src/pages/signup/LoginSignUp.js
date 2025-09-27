@@ -14,7 +14,7 @@ const LoginSignUp = () => {
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
-  const [error, setError] = useState();
+  // const [error, setError] = useState();
 
   const [existingUser, setExistingUser] = useState({
     loginId: "",
@@ -119,7 +119,7 @@ const LoginSignUp = () => {
       }
 
       try {
-        const res = await axios.post("/api/register", {
+        await axios.post("/api/register", {
           name: newUser.name,
           email: newUser.email,
           password: newUser.registerPassword,

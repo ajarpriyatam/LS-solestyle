@@ -6,7 +6,7 @@ import {
   productsReducer,
   productsReducerAdmin
 } from "./reducers/productReducers";
-import { products } from "./constants";
+// import { products } from "./constants";
 // import {
 //   profileReducer,
 //   userReducer,

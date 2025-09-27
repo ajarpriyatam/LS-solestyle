@@ -1,5 +1,5 @@
 import React, { useState, useMemo , useEffect} from 'react';
-import { FiEdit, FiTrash2, FiEye, FiSearch, FiFilter } from 'react-icons/fi';
+import { FiEdit, FiTrash2, FiSearch } from 'react-icons/fi';
 // import { allProducts } from '../../constants';
 import ProductModal from './ProductModal';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ const ProductsList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let allProducts = useSelector((state) => state.productsAdmin.productsAll)
-  const productCount = useSelector((state) => state.productsAdmin.productsCount)
+  // const productCount = useSelector((state) => state.productsAdmin.productsCount)
   const loading = useSelector((state) => state.productsAdmin.loading)
 
 
@@ -92,11 +92,11 @@ const ProductsList = () => {
     }
   };
 
-  const handleView = (product) => {
-    setSelectedProduct(product);
-    setModalMode('view');
-    setIsModalOpen(true);
-  };
+  // const handleView = (product) => {
+  //   setSelectedProduct(product);
+  //   setModalMode('view');
+  //   setIsModalOpen(true);
+  // };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../component/common/Logo";
 import { Drawer, ThemeProvider, createTheme } from "@mui/material";
-import { navItems } from "../constants";
-import CButton from "../component/common/CButton";
+// import { navItems } from "../constants";
 import DrawerList from "./DrawerList";
 import { HiOutlineBars2 } from "react-icons/hi2";
 import useCategory from "../hooks/useCategory";
 import { Link } from "react-router-dom";
-import { FaUser } from "react-icons/fa6";
 
 const theme = createTheme();
 
@@ -15,7 +13,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
-  const allCategories = useCategory();
+  // const allCategories = useCategory();
 
   useEffect(() => {
     const updateActiveNav = () => {
