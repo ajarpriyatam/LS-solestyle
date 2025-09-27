@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "/api/v1",
+  baseURL: process.env.REACT_APP_API_URL || "https://b-ls-solestyle.vercel.app",
   headers: {
     "Content-Type": "application/json;charset=UTF-8",
   },
