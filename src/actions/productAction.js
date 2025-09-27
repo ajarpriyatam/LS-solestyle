@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstanceInstance from "../services/axiosInstance";
 import {
   ALL_PRODUCT_FAIL,
   ALL_PRODUCT_REQUEST,
@@ -18,8 +18,8 @@ import {
 export const getProduct = () => async(dispatch)=>{
   try{
     dispatch({type:ALL_PRODUCT_REQUEST});
-    let link = `/api/v1/products`;
-    const {data} = await axios.get(link)
+    let link = `/products`;
+    const {data} = await axiosInstance.get(link)
     dispatch({
       type:ALL_PRODUCT_SUCCESS,
       payload:data,
@@ -41,8 +41,8 @@ export const createProduct = (productData) => async (dispatch) => {
       headers: { "Content-Type": "application/json" },
     };
     console.log("qwertyuiop[xxxx",productData);
-    const { data } = await axios.post(
-      `/api/v1/admin/product/new`,
+    const { data } = await axiosInstance.post(
+      `/admin/product/new`,
       productData,
       config
     );
@@ -61,7 +61,7 @@ export const createProduct = (productData) => async (dispatch) => {
 export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/v1/product/${id}`);
+    const { data } = await axiosInstance.get(`/product/${id}`);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data.product,
@@ -77,8 +77,8 @@ export const getProductDetails = (id) => async (dispatch) => {
 export const getAllProductsAdmin = () => async(dispatch)=>{
   try{
     dispatch({type:ALL_ADMIN_PRODUCT_REQUEST});
-    let link = `/api/v1/admin/products`;
-    const {data} = await axios.get(link)
+    let link = `/admin/products`;
+    const {data} = await axiosInstance.get(link)
     dispatch({
       type:ALL_ADMIN_PRODUCT_SUCCESS,
       payload:data,
