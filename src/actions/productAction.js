@@ -20,6 +20,7 @@ export const getProduct = () => async(dispatch)=>{
     dispatch({type:ALL_PRODUCT_REQUEST});
     let link = `/products`;
     const {data} = await axiosInstance.get(link)
+    console.log("data",data);
     dispatch({
       type:ALL_PRODUCT_SUCCESS,
       payload:data,
@@ -79,6 +80,7 @@ export const getAllProductsAdmin = () => async(dispatch)=>{
     dispatch({type:ALL_ADMIN_PRODUCT_REQUEST});
     let link = `/admin/products`;
     const {data} = await axiosInstance.get(link)
+    console.log("data",data);
     dispatch({
       type:ALL_ADMIN_PRODUCT_SUCCESS,
       payload:data,
