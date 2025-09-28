@@ -13,7 +13,7 @@ import { useLocation } from "react-router-dom";
 const AddProduct = () => {
     const dispatch = useDispatch();
     const location = useLocation();
-    const { success, error } = useSelector((state) => state.newProduct);
+    const { success, error, loading } = useSelector((state) => state.newProduct);
     
     // Check if we're in edit mode
     const isEditMode = location.state?.editMode || false;
@@ -31,14 +31,16 @@ const AddProduct = () => {
         productImageGallery: [],
     });
 
-    const [isLoading] = useState(false);
+    // Remove the hardcoded isLoading state since we're using Redux loading state
     const [selectedGalleryImages, setSelectedGalleryImages] = useState([]);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const [validationErrors, setValidationErrors] = useState({});
+    const [showValidationError, setShowValidationError] = useState(false);
 
     const categoryOptions = [
-        { label: "Mens", value: "mens" },
-        { label: "Women", value: "women" },
-        { label: "Kids", value: "kids" }
+        { label: "Mens", value: "Mens" },
+        { label: "Women", value: "Women" },
+        { label: "Kids", value: "Kids" }
     ];
 
     // Populate form data when in edit mode
@@ -100,6 +102,51 @@ const AddProduct = () => {
             ...prev,
             [field]: value
         }));
+        
+        // Clear validation error for this field when user starts typing
+        if (validationErrors[field]) {
+            setValidationErrors(prev => ({
+                ...prev,
+                [field]: null
+            }));
+        }
+    };
+
+    // Validation function to check mandatory fields
+    const validateForm = () => {
+        const errors = {};
+        
+        // Check mandatory fields
+        if (!formData.name.trim()) {
+            errors.name = "Product name is required";
+        }
+        
+        if (!formData.category) {
+            errors.category = "Category is required";
+        }
+        
+        if (!formData.price || formData.price <= 0) {
+            errors.price = "Valid price is required";
+        }
+        
+        if (!formData.sizes.trim()) {
+            errors.sizes = "At least one size is required";
+        }
+        
+        if (!formData.colors.trim()) {
+            errors.colors = "At least one color is required";
+        }
+        
+        if (!formData.description.trim()) {
+            errors.description = "Product description is required";
+        }
+        
+        if (formData.productImageGallery.length === 0) {
+            errors.productImageGallery = "At least one product image is required";
+        }
+        
+        setValidationErrors(errors);
+        return Object.keys(errors).length === 0;
     };
 
 
@@ -146,6 +193,21 @@ const AddProduct = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
+        // Validate form before submission
+        if (!validateForm()) {
+            setShowValidationError(true);
+            // Auto hide validation error after 5 seconds
+            setTimeout(() => {
+                setShowValidationError(false);
+            }, 5000);
+            return;
+        }
+        
+        // Clear any previous validation errors
+        setValidationErrors({});
+        setShowValidationError(false);
+        
         let colors = formData.colors.split(",");
         let sizes = formData.sizes.split(",");
 
@@ -168,31 +230,49 @@ const AddProduct = () => {
                     {/* Basic Information Card */}
                     <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
                         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-2">
-                            <InputField
-                                label="Product Name"
-                                placeholder="Enter product name"
-                                id="name"
-                                value={formData.name}
-                                onChange={handleNameChange}
-                            />
+                            <div>
+                                <InputField
+                                    label="Product Name"
+                                    placeholder="Enter product name"
+                                    id="name"
+                                    value={formData.name}
+                                    onChange={handleNameChange}
+                                    className={validationErrors.name ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}
+                                />
+                                {validationErrors.name && (
+                                    <p className="text-red-500 text-xs mt-1">{validationErrors.name}</p>
+                                )}
+                            </div>
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                            <SelectField
-                                label="Category"
-                                placeholder="Select category"
-                                id="category"
-                                value={formData.category}
-                                onChange={handleInputChange}
-                                items={categoryOptions}
-                            />
-                            <InputField
-                                label="Price"
-                                placeholder="Enter price"
-                                id="price"
-                                type="number"
-                                value={formData.price}
-                                onChange={(e) => handleInputChange('price', e.target.value)}
-                            />
+                            <div>
+                                <SelectField
+                                    label="Category"
+                                    placeholder="Select category"
+                                    id="category"
+                                    value={formData.category}
+                                    onChange={handleInputChange}
+                                    items={categoryOptions}
+                                    className={validationErrors.category ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}
+                                />
+                                {validationErrors.category && (
+                                    <p className="text-red-500 text-xs mt-1">{validationErrors.category}</p>
+                                )}
+                            </div>
+                            <div>
+                                <InputField
+                                    label="Price"
+                                    placeholder="Enter price"
+                                    id="price"
+                                    type="number"
+                                    value={formData.price}
+                                    onChange={(e) => handleInputChange('price', e.target.value)}
+                                    className={validationErrors.price ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}
+                                />
+                                {validationErrors.price && (
+                                    <p className="text-red-500 text-xs mt-1">{validationErrors.price}</p>
+                                )}
+                            </div>
                             <InputField
                                 label="Token ID"
                                 placeholder="Enter token ID"
@@ -232,10 +312,17 @@ const AddProduct = () => {
                                                 placeholder="Enter color (e.g., Black, White, Red)"
                                                 value={formData.colors}
                                                 onChange={(e) => handleInputChange('colors', e.target.value)}
-                                                className="w-full h-12 px-4 rounded-xl border border-gray-300 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 bg-white/90 text-gray-800"
+                                                className={`w-full h-12 px-4 rounded-xl border focus:outline-none focus:ring-2 bg-white/90 text-gray-800 ${
+                                                    validationErrors.colors 
+                                                        ? "border-red-500 focus:border-red-500 focus:ring-red-500" 
+                                                        : "border-gray-300 focus:border-orange-500 focus:ring-orange-500/20"
+                                                }`}
                                             />
                                         </div>
                                     </div>
+                                    {validationErrors.colors && (
+                                        <p className="text-red-500 text-xs">{validationErrors.colors}</p>
+                                    )}
                                 </div>
                             </div>
 
@@ -251,22 +338,35 @@ const AddProduct = () => {
                                                 placeholder="Enter size (e.g., 8, 9, 10)"
                                                 value={formData.sizes}
                                                 onChange={(e) => handleInputChange('sizes', e.target.value)}
-                                                className="w-full h-12 px-4 rounded-xl border border-gray-300 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 bg-white/90 text-gray-800"
+                                                className={`w-full h-12 px-4 rounded-xl border focus:outline-none focus:ring-2 bg-white/90 text-gray-800 ${
+                                                    validationErrors.sizes 
+                                                        ? "border-red-500 focus:border-red-500 focus:ring-red-500" 
+                                                        : "border-gray-300 focus:border-orange-500 focus:ring-orange-500/20"
+                                                }`}
                                             />
                                         </div>
                                     </div>
+                                    {validationErrors.sizes && (
+                                        <p className="text-red-500 text-xs">{validationErrors.sizes}</p>
+                                    )}
                                 </div>
                             </div>
 
                             {/* Description Section - Position (1,2) and (2,2) - spans both columns */}
                             <div className="col-start-1 col-end-3 row-start-2 row-end-3">
-                                <TextArea
-                                    label="Description"
-                                    placeholder="Enter detailed product description..."
-                                    id="description"
-                                    value={formData.description}
-                                    onChange={(e) => handleInputChange('description', e.target.value)}
-                                />
+                                <div>
+                                    <TextArea
+                                        label="Description"
+                                        placeholder="Enter detailed product description..."
+                                        id="description"
+                                        value={formData.description}
+                                        onChange={(e) => handleInputChange('description', e.target.value)}
+                                        className={validationErrors.description ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}
+                                    />
+                                    {validationErrors.description && (
+                                        <p className="text-red-500 text-xs mt-1">{validationErrors.description}</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -285,12 +385,19 @@ const AddProduct = () => {
                                     />
                                     <label
                                         htmlFor="productImageGallery"
-                                        className="w-full h-12 px-4 rounded-xl border-2 border-dashed border-orange-300 hover:border-orange-400 text-orange-400 hover:text-orange-500 bg-white/90 cursor-pointer flex items-center justify-center gap-2 transition-colors"
+                                        className={`w-full h-12 px-4 rounded-xl border-2 border-dashed cursor-pointer flex items-center justify-center gap-2 transition-colors ${
+                                            validationErrors.productImageGallery 
+                                                ? "border-red-300 hover:border-red-400 text-red-400 hover:text-red-500" 
+                                                : "border-orange-300 hover:border-orange-400 text-orange-400 hover:text-orange-500"
+                                        } bg-white/90`}
                                     >
                                         <FaUpload size={16} />
                                         Choose Multiple Product Images
                                     </label>
                                 </div>
+                                {validationErrors.productImageGallery && (
+                                    <p className="text-red-500 text-xs">{validationErrors.productImageGallery}</p>
+                                )}
 
                                 {/* Display selected images */}
                                 {selectedGalleryImages.length > 0 && (
@@ -328,10 +435,10 @@ const AddProduct = () => {
                     <div className="flex justify-end pt-2">
                         <button
                             type="submit"
-                            disabled={isLoading}
+                            disabled={loading}
                             className="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-3"
                         >
-                            {isLoading ? (
+                            {loading ? (
                                 <>
                                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                                     {isEditMode ? "Updating Product..." : "Adding Product..."}
@@ -374,6 +481,49 @@ const AddProduct = () => {
                             </div>
                             <button
                                 onClick={() => setShowSuccessPopup(false)}
+                                className="flex-shrink-0 ml-4 text-gray-400 hover:text-gray-600 transition-colors"
+                            >
+                                <FaTimes className="h-4 w-4" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Validation Error Popup - Slides from right */}
+            {showValidationError && (
+                <div 
+                    className="fixed top-4 right-4 z-50"
+                    style={{
+                        animation: 'slideInRight 0.5s ease-out',
+                        transform: 'translateX(0)',
+                        opacity: 1
+                    }}
+                >
+                    <div className="bg-white rounded-lg shadow-2xl border-l-4 border-red-500 p-4 max-w-sm">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                                <div className="flex-shrink-0">
+                                    <FaTimes className="h-6 w-6 text-red-500" />
+                                </div>
+                                <div>
+                                    <h4 className="text-sm font-semibold text-gray-900">
+                                        Missing Required Fields!
+                                    </h4>
+                                    <div className="text-sm text-gray-600 mt-1">
+                                        <p className="font-medium mb-2">Please fill in the following:</p>
+                                        <ul className="list-disc list-inside space-y-1">
+                                            {Object.entries(validationErrors).map(([field, error]) => (
+                                                <li key={field} className="text-xs">
+                                                    {error}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setShowValidationError(false)}
                                 className="flex-shrink-0 ml-4 text-gray-400 hover:text-gray-600 transition-colors"
                             >
                                 <FaTimes className="h-4 w-4" />
