@@ -6,8 +6,7 @@ import { getProduct } from "../actions/productAction";
 
 const Products = () => {
   const dispatch = useDispatch();
-  const allProducts = useSelector((state) => state.products.products)
-  // const productCount = useSelector((state) => state.products.visibleProductscount)
+  const { products: allProducts, loading, error } = useSelector((state) => state.products)
   const [selectedCategory, setSelectedCategory] = useState("All");
   
   console.log("Products page - allProducts:", allProducts);
@@ -59,11 +58,25 @@ const Products = () => {
         </div>
 
         <div className="mt-[60px] col-span-full">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {filteredProducts.map((product, index) => (
-              <ProductCard key={index} {...product} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="text-white text-lg">Loading products...</div>
+            </div>
+          ) : error ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="text-red-500 text-lg">Error: {error}</div>
+            </div>
+          ) : filteredProducts && filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {filteredProducts.map((product, index) => (
+                <ProductCard key={product._id || index} {...product} />
+              ))}
+            </div>
+          ) : (
+            <div className="flex justify-center items-center py-20">
+              <div className="text-gray-400 text-lg">No products found</div>
+            </div>
+          )}
         </div>
       </div>
     </Layout>

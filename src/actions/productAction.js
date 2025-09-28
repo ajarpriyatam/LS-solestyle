@@ -19,11 +19,15 @@ export const getProduct = () => async(dispatch)=>{
   try{
     dispatch({type:ALL_PRODUCT_REQUEST});
     let link = `/products`;
+    console.log('axiosins',axiosInstance);
     const {data} = await axiosInstance.get(link)
     console.log("data",data);
     dispatch({
       type:ALL_PRODUCT_SUCCESS,
-      payload:data,
+      payload:{
+        visibleProducts: data.visibleProducts,
+        visibleProductscount: data.visibleProducts?.length || 0
+      },
     })
   }catch(error){
     console.error("Product fetch error:", error);
