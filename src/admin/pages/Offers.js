@@ -142,7 +142,6 @@ const Offers = () => {
       setImg(null);
     } catch (error) {
       toast.dismiss();
-      console.error("Error submitting the offer: ", error);
     } finally {
       toast.dismiss();
       toast.success("Offer created successfully");

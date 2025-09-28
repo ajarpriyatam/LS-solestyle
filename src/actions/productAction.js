@@ -19,9 +19,7 @@ export const getProduct = () => async(dispatch)=>{
   try{
     dispatch({type:ALL_PRODUCT_REQUEST});
     let link = `/products`;
-    console.log('axiosins',axiosInstance);
     const {data} = await axiosInstance.get(link)
-    console.log("data",data);
     dispatch({
       type:ALL_PRODUCT_SUCCESS,
       payload:{
@@ -30,7 +28,6 @@ export const getProduct = () => async(dispatch)=>{
       },
     })
   }catch(error){
-    console.error("Product fetch error:", error);
     dispatch({
       type:ALL_PRODUCT_FAIL,
       payload: error.response?.data?.message || error.message || "Failed to fetch products",
@@ -45,7 +42,6 @@ export const createProduct = (productData) => async (dispatch) => {
     const config = {
       headers: { "Content-Type": "application/json" },
     };
-    console.log("qwertyuiop[xxxx",productData);
     const { data } = await axiosInstance.post(
       `/admin/product/new`,
       productData,
@@ -84,13 +80,11 @@ export const getAllProductsAdmin = () => async(dispatch)=>{
     dispatch({type:ALL_ADMIN_PRODUCT_REQUEST});
     let link = `/admin/products`;
     const {data} = await axiosInstance.get(link)
-    console.log("data",data);
     dispatch({
       type:ALL_ADMIN_PRODUCT_SUCCESS,
       payload:data,
     })
   }catch(error){
-    console.error("Admin product fetch error:", error);
     dispatch({
       type:ALL_ADMIN_PRODUCT_FAIL,
       payload: error.response?.data?.message || error.message || "Failed to fetch admin products",

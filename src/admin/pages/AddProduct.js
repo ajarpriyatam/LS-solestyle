@@ -90,7 +90,6 @@ const AddProduct = () => {
     // Handle errors
     useEffect(() => {
         if (error) {
-            console.error("Product creation error:", error);
             dispatch(clearErrors());
         }
     }, [error, dispatch]);
@@ -158,7 +157,6 @@ const AddProduct = () => {
             productImageGallery: formData.productImageGallery.filter(image => image.trim() !== ""),
             price: parseFloat(formData.price)
         };
-        console.log("Submitting Product:", filteredData);
         dispatch(createProduct(filteredData));
     };
 

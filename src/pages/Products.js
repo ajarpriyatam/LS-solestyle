@@ -8,9 +8,6 @@ const Products = () => {
   const dispatch = useDispatch();
   const { products: allProducts, loading, error } = useSelector((state) => state.products)
   const [selectedCategory, setSelectedCategory] = useState("All");
-  
-  console.log("Products page - allProducts:", allProducts);
-  console.log("Products page - API URL:", process.env.REACT_APP_API_URL);
 
 
 

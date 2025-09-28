@@ -11,7 +11,6 @@ const useCategory = () => {
       const { data } = await axios.get(getCategoryUrl);
       setCategories(data?.category);
     } catch (error) {
-      console.error(error);
     }
   };
 
