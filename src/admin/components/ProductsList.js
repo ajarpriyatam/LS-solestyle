@@ -4,7 +4,7 @@ import { FiEdit, FiTrash2, FiSearch } from 'react-icons/fi';
 import ProductModal from './ProductModal';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { getAllProductsAdmin } from '../../actions/productAction';
+import { getAllProductsAdmin, deleteProduct, clearDeleteSuccess } from '../../actions/productAction';
 
 const ProductsList = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,11 +20,19 @@ const ProductsList = () => {
   let allProducts = useSelector((state) => state.productsAdmin.productsAll)
   // const productCount = useSelector((state) => state.productsAdmin.productsCount)
   const loading = useSelector((state) => state.productsAdmin.loading)
+  const { isDeleted, loading: deleteLoading } = useSelector((state) => state.deleteProduct)
 
 
   useEffect(() => {
     dispatch(getAllProductsAdmin());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isDeleted) {
+      dispatch(getAllProductsAdmin()); // Refresh the products list
+      dispatch(clearDeleteSuccess()); // Clear the delete success state
+    }
+  }, [isDeleted, dispatch]);
 
   // Get unique brands for filter
   const brands = useMemo(() => {
@@ -87,8 +95,8 @@ const ProductsList = () => {
   };
 
   const handleDelete = (product) => {
-    if (window.confirm(`Are you sure you want to delete "${product.name}"?`)) {
-      // TODO: Implement delete functionality
+    if (window.confirm(`Are you sure you want to delete "${product.name}"? This action cannot be undone.`)) {
+      dispatch(deleteProduct(product._id));
     }
   };
 
@@ -162,7 +170,8 @@ const ProductsList = () => {
           </button>
           <button
             onClick={() => handleDelete(product)}
-            className="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            disabled={deleteLoading}
+            className="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             title="Delete"
           >
             <FiTrash2 size={16} />
@@ -236,7 +245,8 @@ const ProductsList = () => {
           </button>
           <button
             onClick={() => handleDelete(product)}
-            className="text-gray-600 hover:text-red-600"
+            disabled={deleteLoading}
+            className="text-gray-600 hover:text-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
             title="Delete"
           >
             <FiTrash2 size={16} />

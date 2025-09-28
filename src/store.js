@@ -4,7 +4,8 @@ import {
   newProductReducer,
   productDetailsReducer,
   productsReducer,
-  productsReducerAdmin
+  productsReducerAdmin,
+  deleteProductReducer
 } from "./reducers/productReducers";
 // import { products } from "./constants";
 // import {
@@ -26,6 +27,7 @@ const reducer = combineReducers({
   // orderDetails: orderDetailsReducer,
   newProduct: newProductReducer,
   productsAdmin: productsReducerAdmin,
+  deleteProduct: deleteProductReducer,
   // allOrders: allOrdersReducer,
 });
 
