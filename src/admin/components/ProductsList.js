@@ -130,7 +130,7 @@ const ProductsList = () => {
             {product.name}
           </h3>
           <p className="text-sm text-gray-600 truncate">
-            {product.productBrand}
+            {product.tokenId}
           </p>
           <p className="text-lg font-bold text-primary mt-1">
             ₹{product.price}
@@ -226,6 +226,9 @@ const ProductsList = () => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
         {product.sizes?.join(', ')}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {product.tokenId}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
         <div className="flex space-x-2 justify-end">
@@ -363,6 +366,9 @@ const ProductsList = () => {
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Sizes
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    tokenId
                   </th>
                   <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions

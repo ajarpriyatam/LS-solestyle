@@ -8,6 +8,8 @@ const Products = () => {
   const dispatch = useDispatch();
   const { products: allProducts, loading, error } = useSelector((state) => state.products)
   const [selectedCategory, setSelectedCategory] = useState("All");
+  console.log("filter", selectedCategory)
+  console.log("poduct", allProducts)
 
 
 
@@ -47,7 +49,7 @@ const Products = () => {
               <div className="flex gap-8">
                 <CategoryButton name="All" />
                 <CategoryButton name="Mens" />
-                <CategoryButton name="Womens" />
+                <CategoryButton name="Women" />
                 <CategoryButton name="Kids" />
               </div>
             </div>
