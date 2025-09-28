@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = window.location.hostname === 'localhost' ? "/api/v1" : "https://b-ls-solestyle.vercel.app/api/v1";
+const baseURL = process.env.REACT_APP_API_URL || (window.location.hostname === 'localhost' ? "/api/v1" : "https://b-ls-solestyle.vercel.app/api/v1");
 console.log("Axios baseURL:", baseURL);
 console.log("Environment check - hostname:", window.location.hostname);
 console.log("Environment check - REACT_APP_API_URL:", process.env.REACT_APP_API_URL);
