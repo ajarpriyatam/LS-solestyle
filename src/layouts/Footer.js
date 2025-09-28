@@ -56,7 +56,7 @@ const Footer = () => {
                 to="tel:+91-1234567890"
                 className="text-gray-300 text-[16px] leading-[25.2px] hover:text-[#ff6b00] transition-colors"
               >
-                P: +91-1234567890
+                P: +91-7983501137
               </Link>
             </li>
             <li>
@@ -64,7 +64,7 @@ const Footer = () => {
                 to='mailto:abc@gmail.com'
                 className="text-gray-300 text-[16px] leading-[25.2px] hover:text-[#ff6b00] transition-colors"
               >
-                E: abc@gmail.com
+                E: LS.SoleStyle@gmail.com
               </Link>
             </li>
           </ul>
@@ -72,7 +72,7 @@ const Footer = () => {
       </div>
 
       <h6 className="text-gray-400 md:mt-[60px] text-center text-[12px]">
-        © 2025 SoleStyle. All rights reserved.
+        © 2025 LS SoleStyle. All rights reserved.
       </h6>
     </footer>
   );
