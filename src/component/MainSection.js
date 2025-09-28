@@ -42,7 +42,7 @@ const MainSection = () => {
     font-pacifico
   "
         >
-          Welcome to LS Shoes
+          Welcome to LS SoleStyle
         </span>
       </div>
     </section>

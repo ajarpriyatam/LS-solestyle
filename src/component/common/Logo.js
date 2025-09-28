@@ -22,7 +22,7 @@ return (
           L S
         </span>
         <span className="text-sm tracking-[0.3em] text-gray-300 font-light uppercase">
-          Shoes
+          SoleStyle
         </span>
       </div>
     </a>
