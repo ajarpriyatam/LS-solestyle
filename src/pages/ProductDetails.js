@@ -1,29 +1,61 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../layouts/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductDetails } from "../actions/productAction";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const params = useParams();
-  let id = params.slug;
+  const navigate = useNavigate();
+  const id = params.slug;
   const [selectedColor, setSelectedColor] = useState("White");
-  const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState("");
-  let { product, loading, error } = useSelector((state) => state.productDetails);
-  // product.productImageGallery = [product.productImage, ...product.productImageGallery];
+  const [, , { addToCart }] = useCart();
+  const { product, loading, error } = useSelector((state) => state.productDetails);
   useEffect(() => {
     dispatch(getProductDetails(id));
   }, [dispatch, id]);
 
-  const decrementQuantity = () => {
-    if (quantity > 1) setQuantity(quantity - 1);
+  // Set default size when product loads
+  useEffect(() => {
+    if (product?.sizes && product.sizes.length > 0 && !selectedSize) {
+      setSelectedSize(product.sizes[0]);
+    }
+    if (product?.colors && product.colors.length > 0) {
+      setSelectedColor(product.colors[0]);
+    }
+  }, [product, selectedSize]);
+
+
+  const handleAddToCart = () => {
+    if (!product?.sizes || !product?.colors) {
+      toast.error("Product sizes or colors not available");
+      return;
+    }
+
+    const cartItem = {
+      id: product._id, // Single ID for the entire product
+      productId: product._id,
+      name: product.name,
+      colors: product.colors, // All available colors
+      sizes: product.sizes, // All available sizes
+      price: product.price,
+      quantity: 48,
+      image: product.productImageGallery[0].url,
+      tokenId: product.tokenId,
+    };
+
+    addToCart(cartItem);
+    toast.success("Added to cart successfully!");
   };
 
-  const incrementQuantity = () => {
-    setQuantity(quantity + 1);
+  const buyNow = () => {
+    handleAddToCart();
+    navigate("/cart");
   };
 
   const ColorButton = ({ color }) => {
@@ -216,7 +248,7 @@ const ProductDetails = () => {
             </div>
 
             {/* Size Selection */}
-            <div className="mb-6">
+            <div className="mb-6 mt-6">
               <h5 className="text-sm font-medium text-gray-300 mb-3 text-left">Sizes</h5>
               <div className="flex flex-wrap gap-2">
                 {product.sizes && product.sizes.map((size, index) => (
@@ -240,35 +272,20 @@ const ProductDetails = () => {
               )}
             </div>
 
-            {/* Quantity Selection */}
-            <div className="mb-8">
-              <p className="text-sm font-medium text-gray-300 mb-3">Quantity</p>
-              <div className="flex items-center w-fit">
-                <button
-                  className="w-10 h-10 border border-gray-700 bg-gray-800 text-gray-300 flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 transition-colors rounded-l-lg"
-                  onClick={decrementQuantity}
-                >
-                  -
-                </button>
-                <div className="w-12 h-10 border-t border-b border-gray-700 bg-gray-800 text-gray-300 flex items-center justify-center">
-                  {quantity}
-                </div>
-                <button
-                  className="w-10 h-10 border border-gray-700 bg-gray-800 text-gray-300 flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 transition-colors rounded-r-lg"
-                  onClick={incrementQuantity}
-                >
-                  +
-                </button>
-              </div>
-            </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <button className="flex-1 py-4 px-6 border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300 rounded-lg font-medium">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8 mt-14">
+              <button 
+                onClick={handleAddToCart}
+                className="flex-1 py-4 px-6 border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300 rounded-lg font-medium"
+              >
                 ADD TO CART
               </button>
-              <button className="flex-1 py-4 px-6 bg-orange-500 text-white hover:bg-orange-600 transition-all duration-300 rounded-lg font-medium">
-                BUY NOW
+              <button 
+                onClick={buyNow}
+                className="flex-1 py-4 px-6 bg-orange-500 text-white hover:bg-orange-600 transition-all duration-300 rounded-lg font-medium"
+              >
+                COMING SOON...
               </button>
             </div>
 
@@ -298,17 +315,6 @@ const ProductDetails = () => {
               </p>
             </div>
 
-            {/* <div className="bg-gray-900 p-4 rounded-lg">
-              <p className="text-[15px] text-orange-500 font-bold mb-2">
-                Specifications
-              </p>
-              {Object.entries(product.specifications).map(([key, value]) => (
-                <p key={key} className="text-[15px] mb-2">
-                  <span className="font-bold text-gray-300">{key}: </span>
-                  <span className="text-gray-400">{value}</span>
-                </p>
-              ))}
-            </div> */}
           </div>
         </div>
       </div>
