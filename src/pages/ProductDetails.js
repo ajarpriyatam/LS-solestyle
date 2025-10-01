@@ -14,7 +14,8 @@ const ProductDetails = () => {
   const [selectedColor, setSelectedColor] = useState("White");
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState("");
-  const [, , { addToCart }] = useCart();
+  const cartData = useCart();
+  const { addToCart } = cartData[2];
   const { product, loading, error } = useSelector((state) => state.productDetails);
   useEffect(() => {
     dispatch(getProductDetails(id));
@@ -22,13 +23,13 @@ const ProductDetails = () => {
 
   // Set default size when product loads
   useEffect(() => {
-    if (product?.sizes && product.sizes.length > 0 && !selectedSize) {
+    if (product?.sizes && product.sizes.length > 0) {
       setSelectedSize(product.sizes[0]);
     }
     if (product?.colors && product.colors.length > 0) {
       setSelectedColor(product.colors[0]);
     }
-  }, [product, selectedSize]);
+  }, [product]);
 
 
   const handleAddToCart = () => {

@@ -9,15 +9,18 @@ import "slick-carousel/slick/slick-theme.css";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import store from "./store";
+import { CartProvider } from "./context/cart";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <React.StrictMode>
-        <Toaster />
-        <App />
-      </React.StrictMode>
+      <CartProvider>
+        <React.StrictMode>
+          <Toaster />
+          <App />
+        </React.StrictMode>
+      </CartProvider>
     </Provider>
   </BrowserRouter>
 );

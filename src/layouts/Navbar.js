@@ -3,7 +3,9 @@ import Logo from "../component/common/Logo";
 import { Drawer, ThemeProvider, createTheme } from "@mui/material";
 import DrawerList from "./DrawerList";
 import { HiOutlineBars2 } from "react-icons/hi2";
+import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/cart";
 
 const theme = createTheme();
 
@@ -11,6 +13,10 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [, , cartContext] = useCart();
+  const { cart } = cartContext;
+  
+  const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
     const updateActiveNav = () => {
@@ -87,29 +93,19 @@ const Navbar = () => {
                 Products
               </span>
             </Link>
-            {/* <Link
-              className="flex items-center cursor-pointer group"
-              to='/cart'
-            >
-              <span
-                className={`text-[18px] font-medium leading-[22.5px] transition-colors duration-300 ${activeNavItem === '/cart'
-                  ? "text-orange-500"
-                  : isScrolled
-                    ? "text-slate-100 group-hover:text-orange-500"
-                    : "text-slate-300 group-hover:text-orange-500"
-                  }`}
-              >
-                Cart
-              </span>
-            </Link> */}
           </ul>
         </div>
 
-        {/* <div className="flex flex-row gap-5">
-          <Link to={"/account"} className="p-4 text-gray-300 hover:text-orange-500 transition-colors duration-300">
-            <FaUser />
+        <div className="flex flex-row gap-5">
+          <Link to={"/cart"} className="relative p-2 text-gray-300 hover:text-orange-500 transition-colors duration-300">
+            <FaShoppingCart className="h-6 w-6" />
+            {cartItemsCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                {Math.ceil(cartItemsCount/48)}
+              </span>
+            )}
           </Link>
-        </div> */}
+        </div>
 
         <div className="lg:hidden">
           <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 hover:text-orange-500 transition-colors duration-300">
