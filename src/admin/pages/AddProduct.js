@@ -219,9 +219,13 @@ const AddProduct = () => {
                 return trimmedColor.charAt(0).toUpperCase() + trimmedColor.slice(1).toLowerCase();
             });
 
+        // Format name: first char uppercase, rest lowercase
+        const formattedName = formData.name.trim().charAt(0).toUpperCase() + formData.name.trim().slice(1).toLowerCase();
+
         // Filter out empty array items
         const filteredData = {
             ...formData,
+            name: formattedName,
             sizes: sizes.filter(size => size.trim() !== ""),
             colors: formattedColors,
             productImageGallery: formData.productImageGallery.filter(image => image.trim() !== ""),
@@ -230,6 +234,7 @@ const AddProduct = () => {
         dispatch(createProduct(filteredData));
     };
 
+    
     return (
         <div className="w-full h-full bg-gray-100 rounded-[1rem] p-[1rem] overflow-y-auto">
             <div className="max-w-6xl mx-auto">
