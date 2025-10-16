@@ -219,8 +219,11 @@ const AddProduct = () => {
                 return trimmedColor.charAt(0).toUpperCase() + trimmedColor.slice(1).toLowerCase();
             });
 
-        // Format name: first char uppercase, rest lowercase
-        const formattedName = formData.name.trim().charAt(0).toUpperCase() + formData.name.trim().slice(1).toLowerCase();
+        // Format name: first char of each word uppercase, rest lowercase
+        const formattedName = formData.name.trim()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
 
         // Filter out empty array items
         const filteredData = {
