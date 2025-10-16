@@ -136,14 +136,17 @@ const ProductsList = () => {
             ₹{product.price}
           </p>
           <div className="flex items-center space-x-2 mt-2">
-            <div className="flex space-x-1">
-              {product.colors?.slice(0, 3).map((color, idx) => (
-                <div
-                  key={idx}
-                  className="w-4 h-4 rounded-full border border-gray-300"
-                  style={{ backgroundColor: color }}
-                />
-              ))}
+            <div className="flex flex-wrap gap-1">
+              {product.colors?.slice(0, 3).map((color, idx) => {
+                return (
+                  <span
+                    key={idx}
+                    className="px-2 py-1 rounded text-xs bg-gray-100 text-gray-700 border border-gray-200"
+                  >
+                    {color}
+                  </span>
+                );
+              })}
               {product.colors?.length > 3 && (
                 <span className="text-xs text-gray-500">+{product.colors.length - 3}</span>
               )}
@@ -211,14 +214,17 @@ const ProductsList = () => {
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <div className="flex space-x-1">
-          {product.colors?.slice(0, 3).map((color, idx) => (
-            <div
-              key={idx}
-              className="w-4 h-4 rounded-full border border-gray-300"
-              style={{ backgroundColor: color }}
-            />
-          ))}
+        <div className="flex flex-wrap gap-1">
+          {product.colors?.slice(0, 3).map((color, idx) => {
+            return (
+              <span
+                key={idx}
+                className="px-2 py-1 rounded text-xs bg-gray-100 text-gray-700 border border-gray-200"
+              >
+                {color}
+              </span>
+            );
+          })}
           {product.colors?.length > 3 && (
             <span className="text-xs text-gray-500 ml-1">+{product.colors.length - 3}</span>
           )}

@@ -73,15 +73,17 @@ const ProductCard = (props) => {
         {props.colors && props.colors.length > 0 && (
           <div>
             <p className="text-xs text-gray-400 mb-2">Colors:</p>
-            <div className="flex gap-2">
-              {props.colors.map((color, idx) => (
-                <span
-                  key={idx}
-                  className="w-6 h-6 rounded-full border-2 border-black ring-2 ring-orange-500/30 transition-transform hover:scale-110 cursor-pointer"
-                  style={{ backgroundColor: color }}
-                  title={color}
-                ></span>
-              ))}
+            <div className="flex gap-2 flex-wrap">
+              {props.colors.map((color, idx) => {
+                return (
+                  <span
+                    key={idx}
+                    className="px-2 py-1 rounded-md text-xs bg-gray-800 text-gray-300 border border-gray-600"
+                  >
+                    {color}
+                  </span>
+                );
+              })}
             </div>
           </div>
         )}

@@ -179,11 +179,9 @@ const ProductModal = ({ isOpen, onClose, product, mode = 'view' }) => {
                 key={index}
                 className="flex items-center space-x-2 bg-gray-100 rounded-lg px-3 py-1"
               >
-                <div
-                  className="w-4 h-4 rounded-full border border-gray-300"
-                  style={{ backgroundColor: color }}
-                />
-                <span className="text-sm">{color}</span>
+                <span className="text-sm px-2 py-1 bg-gray-200 rounded border border-gray-300">
+                  {color}
+                </span>
                 {isEditing && (
                   <button
                     onClick={() => handleRemoveColor(color)}

@@ -60,48 +60,13 @@ const ProductDetails = () => {
   };
 
   const ColorButton = ({ color }) => {
-    const getColorClass = () => {
-      switch (color.toLowerCase()) {
-        case "white":
-          return "bg-white border border-gray-300";
-        case "black":
-          return "bg-black border border-gray-300";
-        case "red":
-          return "bg-red-500 border border-gray-300";
-        case "blue":
-          return "bg-blue-500 border border-gray-300";
-        case "green":
-          return "bg-green-500 border border-gray-300";
-        case "yellow":
-          return "bg-yellow-500 border border-gray-300";
-        case "purple":
-          return "bg-purple-500 border border-gray-300";
-        case "pink":
-          return "bg-pink-500 border border-gray-300";
-        case "grey":
-          return "bg-gray-500 border border-gray-300";
-        case "orange":
-          return "bg-orange-500 border border-gray-300";
-        case "brown":
-          return "bg-amber-800 border border-gray-300";
-        case "beige":
-          return "bg-amber-100 border border-gray-300";
-        case "lightblue":
-          return "bg-blue-300 border border-gray-300";
-        default:
-          return "bg-gray-300 border border-gray-300";
-      }
-    };
-
     return (
       <button
-        className={`w-12 h-12 rounded-lg ${getColorClass()} ${selectedColor === color
-          ? "ring-2 ring-orange-500 shadow-lg shadow-orange-500/30"
-          : "hover:ring-2 hover:ring-orange-500/50"
-          } transition-all duration-300`}
         onClick={() => setSelectedColor(color)}
-        title={color}
-      />
+        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 border-2 bg-gray-800 text-gray-300 border-gray-600 hover:border-orange-500/50 hover:bg-gray-700`}
+      >
+        {color}
+      </button>
     );
   };
 
@@ -240,7 +205,7 @@ const ProductDetails = () => {
 
             {/* Colors Section */}
             <div className="mb-6">
-              <h5 className="text-sm font-medium text-gray-300 mb-3 text-left">Colors</h5>
+              <h5 className="text-sm font-medium text-gray-300 mb-3 text-left">Available Colors</h5>
               <div className="flex gap-3 flex-wrap">
                 {product.colors && product.colors.map((color) => (
                   <ColorButton key={color} color={color} />
@@ -250,27 +215,18 @@ const ProductDetails = () => {
 
             {/* Size Selection */}
             <div className="mb-6 mt-6">
-              <h5 className="text-sm font-medium text-gray-300 mb-3 text-left">Sizes</h5>
+              <h5 className="text-sm font-medium text-gray-300 mb-3 text-left">Available Sizes</h5>
               <div className="flex flex-wrap gap-2">
                 {product.sizes && product.sizes.map((size, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedSize(size)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 border-2 ${
-                      selectedSize === size
-                        ? "bg-orange-500 text-white border-orange-500 shadow-lg shadow-orange-500/30"
-                        : "bg-gray-800 text-gray-300 border-gray-600 hover:border-orange-500/50 hover:bg-gray-700"
-                    }`}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 border-2 bg-gray-800 text-gray-300 border-gray-600 hover:border-orange-500/50 hover:bg-gray-700}`}
                   >
                     {size}
                   </button>
                 ))}
               </div>
-              {selectedSize && (
-                <p className="text-xs text-gray-400 mt-2">
-                  Selected: {selectedColor} / {selectedSize}
-                </p>
-              )}
             </div>
 
 
