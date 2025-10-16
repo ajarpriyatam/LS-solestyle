@@ -11,9 +11,7 @@ const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const id = params.slug;
-  const [selectedColor, setSelectedColor] = useState("White");
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("");
   const cartData = useCart();
   const { addToCart } = cartData[2];
   const { product, loading, error } = useSelector((state) => state.productDetails);
@@ -21,15 +19,6 @@ const ProductDetails = () => {
     dispatch(getProductDetails(id));
   }, [dispatch, id]);
 
-  // Set default size when product loads
-  useEffect(() => {
-    if (product?.sizes && product.sizes.length > 0) {
-      setSelectedSize(product.sizes[0]);
-    }
-    if (product?.colors && product.colors.length > 0) {
-      setSelectedColor(product.colors[0]);
-    }
-  }, [product]);
 
 
   const handleAddToCart = () => {
@@ -62,7 +51,6 @@ const ProductDetails = () => {
   const ColorButton = ({ color }) => {
     return (
       <button
-        onClick={() => setSelectedColor(color)}
         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 border-2 bg-gray-800 text-gray-300 border-gray-600 hover:border-orange-500/50 hover:bg-gray-700`}
       >
         {color}
@@ -220,7 +208,6 @@ const ProductDetails = () => {
                 {product.sizes && product.sizes.map((size, index) => (
                   <button
                     key={index}
-                    onClick={() => setSelectedSize(size)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 border-2 bg-gray-800 text-gray-300 border-gray-600 hover:border-orange-500/50 hover:bg-gray-700}`}
                   >
                     {size}
