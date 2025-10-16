@@ -211,11 +211,19 @@ const AddProduct = () => {
         let colors = formData.colors.split(",");
         let sizes = formData.sizes.split(",");
 
+        // Format colors: first char uppercase, rest lowercase
+        const formattedColors = colors
+            .filter(color => color.trim() !== "")
+            .map(color => {
+                const trimmedColor = color.trim();
+                return trimmedColor.charAt(0).toUpperCase() + trimmedColor.slice(1).toLowerCase();
+            });
+
         // Filter out empty array items
         const filteredData = {
             ...formData,
             sizes: sizes.filter(size => size.trim() !== ""),
-            colors: colors.filter(color => color.trim() !== ""),
+            colors: formattedColors,
             productImageGallery: formData.productImageGallery.filter(image => image.trim() !== ""),
             price: parseFloat(formData.price)
         };
